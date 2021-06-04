@@ -11,20 +11,12 @@ jobs:
     container:
       image: mcr.microsoft.com/dotnet/sdk:3.1
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: ~/.nuget/packages
-          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nuget
-      - name: Install dependencies
-        run: dotnet restore
-      - name: Build project
-        run: dotnet build --configuration release --no-restore
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Package project
-        run: dotnet pack --output out --configuration release --no-restore
+        run: dotnet pack src/tool/CosmicWorks.Tool.csproj --output out --configuration release -p:Version=0.1.${{ github.run_number }}-preview
       - name: Upload NuGet package artifact
         uses: actions/upload-artifact@v2
         with:
+          name: NuGet packages
           path: out
