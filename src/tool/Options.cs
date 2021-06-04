@@ -21,7 +21,7 @@ namespace CosmicWorks.Tool
         [Option('k', "key", Required = false, HelpText = "Set authorization key for target account")]
         public string Key { get; set; }
 
-        [Usage(ApplicationAlias = "cosmosconsole")]
+        [Usage(ApplicationAlias = "cosmicworks")]
         public static IEnumerable<Example> Examples
         {
             get
