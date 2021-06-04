@@ -2,7 +2,7 @@
 {
     internal class Secrets
     {
-        public string uri;
-        public string key;
+        public string uri { get; set; }
+        public string key { get; set; }
     }
 }

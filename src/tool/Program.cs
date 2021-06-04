@@ -11,7 +11,6 @@ namespace CosmicWorks.Tool
 {
     internal class Program
     {
-        private const string _databaseId = "cosmicworks";
         private static string _endpointUrl;
         private static string _authorizationKey;
 
@@ -45,7 +44,10 @@ namespace CosmicWorks.Tool
             Console.WriteLine($"Datasets:{Environment.NewLine}\t{String.Join($"{Environment.NewLine}\t", options.Datasets)}{Environment.NewLine}");
 
             CosmosClient client = new CosmosClient(_endpointUrl, _authorizationKey);
-            CosmosDatabase clientDatabase = await client.CreateDatabaseIfNotExistsAsync(_databaseId);
+
+            // TODO: Shouldn't this be "cosmicworks-v4" or just "cosmicworks"?
+            string databaseName =  $"database-{options.Revision}";
+            CosmosDatabase clientDatabase = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             Console.WriteLine($"Database:\t[cosmicworks]\tStatus:\tCreated");
 
             foreach (var database in options.Datasets)

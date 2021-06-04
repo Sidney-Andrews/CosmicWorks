@@ -12,7 +12,7 @@
     <Copyright>Copyright (C) 2021 Microsoft Corporation. All rights reserved.</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Authors>Microsoft</Authors>
-    <PackageId>Azure.Cosmos.CosmicWorks</PackageId>
+    <PackageId>CosmicWorks</PackageId>
     <PackageTags>microsoft;azure;cosmos;cosmosdb;documentdb;docdb;nosql;dotnetcore;netcore;netstandard</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/azurecosmosdb/cosmicworks</PackageProjectUrl>
