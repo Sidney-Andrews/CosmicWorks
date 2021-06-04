@@ -1,30 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using CosmicWorks.Models;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using models;
-using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 
-namespace modeling_demos
+namespace CosmicWorks.Demos.Modeling
 {
-    class Program
+    internal class Program
     {
         //=================================================================
         //Load secrets
-
         private static IConfigurationBuilder builder = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile(@"appSettings.json", optional: false, reloadOnChange: true)
             .AddUserSecrets<Secrets>();
+        private static Secrets config = builder.Build().Get<Secrets>();
 
-        private static IConfigurationRoot config = builder.Build();
-
-        private static readonly string uri = config["uri"];
-        private static readonly string key = config["key"];
-        private static readonly CosmosClient client = new CosmosClient(uri, key);
+        private static readonly CosmosClient client = new CosmosClient(config.uri, config.key);
 
         public static async Task Main(string[] args)
         {
@@ -511,11 +507,5 @@ namespace modeling_demos
         {
             Console.WriteLine($"{JObject.FromObject(obj).ToString()}\n");
         }
-    }
-
-    class Secrets
-    {
-        public string uri;
-        public string key;
     }
 }

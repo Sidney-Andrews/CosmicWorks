@@ -1,15 +1,15 @@
-﻿using System;
+﻿using CosmicWorks.Models;
+using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Configuration;
-using models;
 
-namespace ChangeFeedConsole
+namespace CosmicWorks.Demos.ChangeFeedCategories
 {
-    class Program
+    internal class Program
     {
         //=================================================================
         //Load secrets
@@ -17,15 +17,10 @@ namespace ChangeFeedConsole
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile(@"appSettings.json", optional: false, reloadOnChange: true)
             .AddUserSecrets<Secrets>();
+        private static Secrets config = builder.Build().Get<Secrets>();
 
-        private static IConfigurationRoot config = builder.Build();
-
-        private static readonly string uri = config["uri"];
-        private static readonly string key = config["key"];
-        private static readonly CosmosClient client = new CosmosClient(uri, key);
-
-        private static readonly CosmosClient _client = new CosmosClient(uri, key);
-        private static readonly Database database = _client.GetDatabase("database-v3");
+        private static readonly CosmosClient client = new CosmosClient(config.uri, config.key);
+        private static readonly Database database = client.GetDatabase("database-v3");
         private static readonly Container productCategoryContainer = database.GetContainer("productCategory");
         private static readonly Container productContainer = database.GetContainer("product");
 
@@ -106,11 +101,5 @@ namespace ChangeFeedConsole
                 Console.WriteLine($"Updated {productCount} products with updated category name '{categoryName}'");
             }
         }
-    }
-
-    class Secrets
-    {
-        public string uri;
-        public string key;
     }
 }
