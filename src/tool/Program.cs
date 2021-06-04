@@ -65,6 +65,7 @@ namespace CosmicWorks.Tool
 
         private static async Task<Dataset> BulkUpsertContent<T>(CosmosDatabase database, Dataset containerName, string uri, string partitionKey, Func<T, string> partitionKeyValue) where T : IEntity
         {
+            // TODO: Make this configurable
             int parallelism = 200;
 
             CosmosContainer container = await database.CreateContainerIfNotExistsAsync($"{containerName}", partitionKeyPath: partitionKey, throughput: 4000);

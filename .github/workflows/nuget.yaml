@@ -1,8 +1,10 @@
 name: Package dotnet tool
-on:
+on:    
   push:
+    branches:    
+      - master
     paths:
-      - 'src/tool'
+      - 'src/tool/**'
 jobs:
   build:
     runs-on: ubuntu-latest
