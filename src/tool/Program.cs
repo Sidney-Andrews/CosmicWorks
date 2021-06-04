@@ -23,6 +23,7 @@ namespace CosmicWorks.Tool
         {
             if (options.Emulator)
             {
+                // TODO: Add this to a configuration file
                 _endpointUrl = "https://localhost:8081";
                 _authorizationKey = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
             }

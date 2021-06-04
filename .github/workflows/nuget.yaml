@@ -22,7 +22,7 @@ jobs:
         run: dotnet build --configuration release --no-restore
       - name: Package project
         run: dotnet pack --output out --configuration release --no-restore
-      - name: Upload NuGet package artifcat
+      - name: Upload NuGet package artifact
         uses: actions/upload-artifact@v2
         with:
           path: out
