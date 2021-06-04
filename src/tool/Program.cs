@@ -59,7 +59,7 @@ namespace CosmicWorks.Tool
                         await BulkUpsertContent<CustomerV4>(clientDatabase, database, "https://raw.githubusercontent.com/azurecosmosdb/cosmicworks/master/data/cosmic-works-v4/customer", "/customerId", e => e.customerId),
                     _ => throw new ArgumentOutOfRangeException("Revision and names do not map to known values")
                 };
-                Console.WriteLine($"Container:\t[{container}]\tStatus:\tPopulated");
+                Console.WriteLine($"{Environment.NewLine}Container:\t[{container}]\tStatus:\tPopulated");
             }
         }
 
@@ -69,7 +69,7 @@ namespace CosmicWorks.Tool
             int parallelism = 200;
 
             CosmosContainer container = await database.CreateContainerIfNotExistsAsync($"{containerName}", partitionKeyPath: partitionKey, throughput: 4000);
-            Console.WriteLine($"Container:\t[{containerName}]\tStatus:\tReady");
+            Console.WriteLine($"Container:\t[{containerName}]\tStatus:\tReady{Environment.NewLine}");
             IEnumerable<T> entities = await uri.GetJsonAsync<List<T>>();
 
             int batchIndex = 1;
@@ -95,6 +95,7 @@ namespace CosmicWorks.Tool
                 if (batchCounter >= parallelism)
                 {
                     await Task.WhenAll(concurrentOperations);
+                    // TODO: Do we need to print the batch count here?
                     Console.WriteLine($"Batch:\t[{Guid.Parse(batchIndex.ToString("D32"))}]\tContainer:{containerName}\tStatus:\tComplete");
                     concurrentOperations.Clear();
                     batchIndex++;
