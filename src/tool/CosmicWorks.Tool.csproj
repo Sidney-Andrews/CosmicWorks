@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>CosmicWorks.Tool</RootNamespace>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>cosmicworks</ToolCommandName>
+    <AssemblyName>cosmicworks</AssemblyName>
+    <Company>Microsoft</Company>
+    <Product>Microsoft(R) Azure Cosmos</Product>
+    <Description>This tools enables deployment of the CosmicWorks sample database to Azure Cosmos via the SQL API. Azure Cosmos is a globally distributed, multi-model database service. For more information, refer to http://azure.microsoft.com/services/cosmos-db/.</Description>
+    <Copyright>Copyright (C) 2021 Microsoft Corporation. All rights reserved.</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Authors>Microsoft</Authors>
+    <PackageId>Azure.Cosmos.CosmicWorks</PackageId>
+    <PackageTags>microsoft;azure;cosmos;cosmosdb;documentdb;docdb;nosql;dotnetcore;netcore;netstandard</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/azurecosmosdb/cosmicworks</PackageProjectUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Cosmos" Version="4.0.0-preview3" />
+    <PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
+    <PackageReference Include="Flurl.Http" Version="3.2.0" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.0.0-beta.74" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\models\CosmicWorks.Models.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="customer">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="product">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

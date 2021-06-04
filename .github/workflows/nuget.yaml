@@ -1,0 +1,28 @@
+name: Package dotnet tool
+on:
+  push:
+    paths:
+      - 'src/tool'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:3.1
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build project
+        run: dotnet build --configuration release --no-restore
+      - name: Package project
+        run: dotnet pack --output out --configuration release --no-restore
+      - name: Upload NuGet package artifcat
+        uses: actions/upload-artifact@v2
+        with:
+          path: out
