@@ -45,8 +45,8 @@ namespace CosmicWorks.Tool
 
             CosmosClient client = new CosmosClient(_endpointUrl, _authorizationKey);
 
-            // TODO: Shouldn't this be "cosmicworks-v4" or just "cosmicworks"?
-            string databaseName =  $"database-{options.Revision}";
+            string databaseName =  options.Name ?? $"database-{options.Revision}";
+            
             CosmosDatabase clientDatabase = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             Console.WriteLine($"Database:\t[cosmicworks]\tStatus:\tCreated");
 

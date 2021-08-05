@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Package project
-        run: dotnet pack src/tool/CosmicWorks.Tool.csproj --output out --configuration release -p:Version=0.1.${{ github.run_number }}-preview
+        run: dotnet pack src/tool/CosmicWorks.Tool.csproj --output out --configuration release -p:Version=1.0.${{ github.run_number }}
       - name: Upload NuGet package artifact
         uses: actions/upload-artifact@v2
         with:

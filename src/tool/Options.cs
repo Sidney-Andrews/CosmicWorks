@@ -12,6 +12,9 @@ namespace CosmicWorks.Tool
         [Option('d', "datasets", Separator = ':', Required = false, Default = new Dataset[] { Dataset.customer, Dataset.product }, HelpText = "Selected database[s] to deploy")]
         public IEnumerable<Dataset> Datasets { get; set; }
 
+        [Option('n', "name", Required = false, Default = "cosmicworks", HelpText = "Set name for new database")]
+        public string Name { get; set; }
+
         [Option('e', "emulator", Required = false, Default = false, HelpText = "Load data into emulator")]
         public bool Emulator { get; set; }
 
