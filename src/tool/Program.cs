@@ -2,6 +2,7 @@
 using CommandLine;
 using CosmicWorks.Models;
 using Flurl.Http;
+using Humanizer;
 using McMaster.Extensions.CommandLineUtils;
 using System;
 using System.Collections.Generic;
@@ -64,10 +65,12 @@ namespace CosmicWorks.Tool
             }
         }
 
-        private static async Task<Dataset> BulkUpsertContent<T>(CosmosDatabase database, Dataset containerName, string uri, string partitionKey, Func<T, string> partitionKeyValue) where T : IEntity
+        private static async Task<Dataset> BulkUpsertContent<T>(CosmosDatabase database, Dataset dataset, string uri, string partitionKey, Func<T, string> partitionKeyValue) where T : IEntity
         {
             // TODO: Make this configurable
             int parallelism = 200;
+
+            string containerName = dataset.ToString().ToLower().Pluralize();
 
             CosmosContainer container = await database.CreateContainerIfNotExistsAsync($"{containerName}", partitionKeyPath: partitionKey, throughput: 4000);
             Console.WriteLine($"Container:\t[{containerName}]\tStatus:\tReady{Environment.NewLine}");
@@ -104,7 +107,7 @@ namespace CosmicWorks.Tool
                 }
             }
 
-            return containerName;
+            return dataset;
         }
     }
 }
