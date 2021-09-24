@@ -28,14 +28,13 @@ namespace CosmicWorks.Tool
             }
             else
             {
-                if (String.IsNullOrWhiteSpace(options.Endpoint))
-                {
-                    _endpointUrl = Prompt.GetString("Enter your Endpoint Uri:\t");
-                }
-                if (String.IsNullOrWhiteSpace(options.Key))
-                {
-                    _authorizationKey = Prompt.GetString("Enter your Authorization Key:\t");
-                }
+                _endpointUrl = String.IsNullOrWhiteSpace(options.Endpoint) ?
+                    Prompt.GetString("Enter your Endpoint Uri:\t") :
+                    options.Endpoint;
+
+                _authorizationKey = String.IsNullOrWhiteSpace(options.Key) ?
+                    Prompt.GetString("Enter your Authorization Key:\t") :
+                    options.Key;
             }
 
             Console.WriteLine($"Endpoint:\t{_endpointUrl}");
@@ -45,7 +44,7 @@ namespace CosmicWorks.Tool
 
             CosmosClient client = new CosmosClient(_endpointUrl, _authorizationKey);
 
-            string databaseName =  options.Name ?? $"database-{options.Revision}";
+            string databaseName =  options.Name ?? $"cosmicworks";
             
             CosmosDatabase clientDatabase = await client.CreateDatabaseIfNotExistsAsync(databaseName);
             Console.WriteLine($"Database:\t[cosmicworks]\tStatus:\tCreated");
